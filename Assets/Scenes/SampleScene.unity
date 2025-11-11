@@ -705,7 +705,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4578425261336509156, guid: 23b301c3a02599d4097706e494e33603, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 735841310}
   m_SourcePrefab: {fileID: 100100000, guid: 23b301c3a02599d4097706e494e33603, type: 3}
 --- !u!1 &533389313
 GameObject:
@@ -969,6 +972,7 @@ GameObject:
   - component: {fileID: 583999885}
   - component: {fileID: 583999884}
   - component: {fileID: 583999883}
+  - component: {fileID: 583999886}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1070,6 +1074,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583999881}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &583999886
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583999881}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1 &630526011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,7 +1259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   thisShip: {fileID: 583999882}
-  r: {fileID: 0}
   turnSpeed: 60
   boostSpeed: 45
 --- !u!54 &676111288
@@ -1258,6 +1288,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &735841309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4578425261336509156, guid: 23b301c3a02599d4097706e494e33603, type: 3}
+  m_PrefabInstance: {fileID: 486910770}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &735841310
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735841309}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &780485526
 GameObject:
   m_ObjectHideFlags: 0
