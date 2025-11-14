@@ -243,9 +243,10 @@ GameObject:
   - component: {fileID: 27919543}
   - component: {fileID: 27919542}
   - component: {fileID: 27919541}
+  - component: {fileID: 27919546}
   m_Layer: 0
   m_Name: Asteroid (6)
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,11 +370,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &27919546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27919540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
 --- !u!4 &31181535 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3801606705315536990, guid: 23b301c3a02599d4097706e494e33603, type: 3}
   m_PrefabInstance: {fileID: 486910770}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &228929888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 228929889}
+  m_Layer: 8
+  m_Name: FirePoint_Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &228929889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228929888}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.028560167, y: 0.001548603, z: -0.0048498805, w: 0.99957913}
+  m_LocalPosition: {x: 0.052, y: 0.00030000135, z: 0.40639997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 389314406}
+  m_LocalEulerAnglesHint: {x: 3.274, y: 0.162, z: -0.551}
 --- !u!1 &264951105
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,13 +557,18 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264951105}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.625, z: -2.5}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 1.07, z: -2.02}
   m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 31181535}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+--- !u!4 &389314406 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2642395801914912911, guid: 23b301c3a02599d4097706e494e33603, type: 3}
+  m_PrefabInstance: {fileID: 486910770}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,6 +770,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3801606705315536990, guid: 23b301c3a02599d4097706e494e33603, type: 3}
       insertIndex: -1
       addedObject: {fileID: 264951109}
+    - targetCorrespondingSourceObject: {fileID: 2642395801914912911, guid: 23b301c3a02599d4097706e494e33603, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 228929889}
+    - targetCorrespondingSourceObject: {fileID: 2642395801914912911, guid: 23b301c3a02599d4097706e494e33603, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1974328384}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4578425261336509156, guid: 23b301c3a02599d4097706e494e33603, type: 3}
       insertIndex: -1
@@ -725,6 +789,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4578425261336509156, guid: 23b301c3a02599d4097706e494e33603, type: 3}
       insertIndex: -1
       addedObject: {fileID: 735841313}
+    - targetCorrespondingSourceObject: {fileID: 4578425261336509156, guid: 23b301c3a02599d4097706e494e33603, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 735841314}
   m_SourcePrefab: {fileID: 100100000, guid: 23b301c3a02599d4097706e494e33603, type: 3}
 --- !u!1 &533389313
 GameObject:
@@ -739,9 +806,10 @@ GameObject:
   - component: {fileID: 533389316}
   - component: {fileID: 533389315}
   - component: {fileID: 533389314}
+  - component: {fileID: 533389319}
   m_Layer: 0
   m_Name: Asteroid (5)
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -865,6 +933,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &533389319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533389313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
 --- !u!1 &579993045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,6 +1269,27 @@ MonoBehaviour:
   thrustForce: 40
   maxSpeed: 50
   damping: 0.98
+--- !u!114 &735841314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735841309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67bc48f1fde2f514b8a484fd4a923286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSystem
+  projectilePrefab: {fileID: 4176458842192488540, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+  firePoints:
+  - {fileID: 228929889}
+  - {fileID: 1974328384}
+  fireRate: 0.2
+  fireKey: 32
+  automaticFire: 1
+  fireSound: {fileID: 0}
+  muzzleFlash: {fileID: 0}
 --- !u!1 &780485526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,9 +1303,10 @@ GameObject:
   - component: {fileID: 780485529}
   - component: {fileID: 780485528}
   - component: {fileID: 780485527}
+  - component: {fileID: 780485532}
   m_Layer: 0
   m_Name: Asteroid (1)
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1319,6 +1430,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &780485532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780485526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
 --- !u!1 &797451479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,9 +1624,10 @@ GameObject:
   - component: {fileID: 922516696}
   - component: {fileID: 922516695}
   - component: {fileID: 922516694}
+  - component: {fileID: 922516699}
   m_Layer: 0
   m_Name: Asteroid (8)
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1618,6 +1751,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &922516699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922516693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
 --- !u!1 &936988740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1631,9 +1785,10 @@ GameObject:
   - component: {fileID: 936988743}
   - component: {fileID: 936988742}
   - component: {fileID: 936988741}
+  - component: {fileID: 936988746}
   m_Layer: 0
   m_Name: Asteroid (3)
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1757,6 +1912,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &936988746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936988740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
 --- !u!1 &1260291720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,9 +2094,10 @@ GameObject:
   - component: {fileID: 1645642250}
   - component: {fileID: 1645642249}
   - component: {fileID: 1645642248}
+  - component: {fileID: 1645642253}
   m_Layer: 0
   m_Name: Asteroid (4)
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2044,6 +2221,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1645642253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645642247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
 --- !u!1 &1649506298
 GameObject:
   m_ObjectHideFlags: 0
@@ -2168,9 +2366,10 @@ GameObject:
   - component: {fileID: 1720155570}
   - component: {fileID: 1720155569}
   - component: {fileID: 1720155568}
+  - component: {fileID: 1720155573}
   m_Layer: 0
   m_Name: Asteroid (2)
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2294,6 +2493,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1720155573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720155567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
 --- !u!1 &1756289546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2307,9 +2527,10 @@ GameObject:
   - component: {fileID: 1756289549}
   - component: {fileID: 1756289548}
   - component: {fileID: 1756289547}
+  - component: {fileID: 1756289552}
   m_Layer: 0
   m_Name: Asteroid (12)
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2433,6 +2654,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1756289552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756289546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
+--- !u!1 &1974328383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1974328384}
+  m_Layer: 8
+  m_Name: FirePoint_Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1974328384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974328383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0523, y: -0.0057, z: 0.4197}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 389314406}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2027989039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,9 +2719,10 @@ GameObject:
   - component: {fileID: 2027989042}
   - component: {fileID: 2027989041}
   - component: {fileID: 2027989040}
+  - component: {fileID: 2027989045}
   m_Layer: 0
   m_Name: Asteroid (9)
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2572,6 +2846,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2027989045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027989039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
 --- !u!1 &2131642099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2617,9 +2912,10 @@ GameObject:
   - component: {fileID: 2143354154}
   - component: {fileID: 2143354153}
   - component: {fileID: 2143354157}
+  - component: {fileID: 2143354158}
   m_Layer: 0
   m_Name: Asteroid
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2743,6 +3039,96 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &2143354158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143354152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ab435c09f09749a64ea58583ca484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  health: 100
+  rotationSpeed: 20
+  scoreValue: 10
+  explosionEffect: {fileID: 0}
+  explosionSound: {fileID: 0}
+  canSplit: 0
+  smallerAsteroidPrefab: {fileID: 0}
+  splitCount: 3
+  splitForce: 5
+--- !u!1001 &5183237371899800173
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4176458842192488540, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_Name
+      value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20.612
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -35.82536
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 199.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360870661046738381, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633906150203426120, guid: d779602e91631b44987b437bcfd94b17, type: 3}
+      propertyPath: speed
+      value: 100
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d779602e91631b44987b437bcfd94b17, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2761,3 +3147,4 @@ SceneRoots:
   - {fileID: 2027989044}
   - {fileID: 1756289551}
   - {fileID: 2131642100}
+  - {fileID: 5183237371899800173}
