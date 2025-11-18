@@ -97,3 +97,9 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Breakable Asteroids - arquivos grandes
+Assets/BreakableAsteroids/Asteroids/zasteroids.dae
+Assets/BreakableAsteroids/Asteroids/zasteroids.dae.meta
+Assets/BreakableAsteroids/Textures/The Void 8k.hdr
+Assets/BreakableAsteroids/Textures/The Void 8k.hdr.meta
