@@ -1,5 +1,4 @@
 using UnityEngine;
-
 [RequireComponent(typeof(Rigidbody))]
 public class SpaceshipController : MonoBehaviour
 {
@@ -13,9 +12,12 @@ public class SpaceshipController : MonoBehaviour
     public float maxSpeed = 50f;
     public float damping = 0.98f; // reduz deslizamento lateral
 
+    [Header("Movimento Automático")]
+    public bool autoThrust = true; // Movimento constante para frente
+    public float autoThrustSpeed = 20f; // Velocidade automática
+
     private void Start()
     {
-        // r = GetComponent<Rigidbody>();
         r.useGravity = false;
         r.isKinematic = false;
         r.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
@@ -44,15 +46,22 @@ public class SpaceshipController : MonoBehaviour
     {
         float throttle = Input.GetAxis("Throttle");
 
-        if (!Mathf.Approximately(throttle, 0f))
+        // Movimento automático para frente
+        if (autoThrust)
         {
-            // Força só para frente e para trás
-            Vector3 forwardForce = -transform.forward * thrustForce * throttle;
+            Vector3 forwardForce = -transform.forward * autoThrustSpeed;
             r.AddForce(forwardForce, ForceMode.Acceleration);
         }
-        else
+
+        // Input manual adicional (acelerar/desacelerar)
+        if (!Mathf.Approximately(throttle, 0f))
         {
-            // Aplica leve amortecimento para reduzir deriva lateral
+            Vector3 manualForce = -transform.forward * thrustForce * throttle;
+            r.AddForce(manualForce, ForceMode.Acceleration);
+        }
+        else if (!autoThrust)
+        {
+            // Aplica leve amortecimento apenas se NÃO tiver movimento automático
             r.linearVelocity *= damping;
         }
     }
@@ -73,29 +82,3 @@ public class SpaceshipController : MonoBehaviour
         r.linearVelocity = transform.TransformDirection(localVel);
     }
 }
-
-
-
-
-
-
-// using UnityEngine;
-
-// public class AddPlayerControlledVelocity : MonoBehaviour
-// {
-//     // Permite controlar o player nos eixos de movimenta��o
-//     [SerializeField]
-//     Vector3 v3Force;
-//     [SerializeField]
-//     KeyCode keyPositive;
-//     [SerializeField]
-//     KeyCode keyNegative;
-
-//     void FixedUpdate()
-//     {
-//         if (Input.GetKey(keyPositive))
-//             GetComponent<Rigidbody>().linearVelocity += v3Force;
-//         if (Input.GetKey(keyNegative))
-//             GetComponent<Rigidbody>().linearVelocity -= v3Force;
-//     }
-// }
