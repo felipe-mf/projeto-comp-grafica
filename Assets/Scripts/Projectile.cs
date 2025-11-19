@@ -23,37 +23,33 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        // Ignora colisão com o player
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            Collider playerCollider = player.GetComponent<Collider>();
-            Collider projectileCollider = GetComponent<Collider>();
-            if (playerCollider != null && projectileCollider != null)
-            {
-                Physics.IgnoreCollision(projectileCollider, playerCollider);
-            }
-        }
-
         // Aplica velocidade inicial
         rb.linearVelocity = transform.forward * speed;
 
         // Destroi após o tempo de vida
         Destroy(gameObject, lifetime);
 
-        Debug.Log("Projectile criado! Velocidade: " + rb.linearVelocity);
+        Debug.Log("Projectile criado! Velocidade: " + rb.linearVelocity + " | Posição: " + transform.position);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Ignora colisão com outros projéteis
-        if (other.CompareTag("Projectile")) return;
+        Debug.Log("Projétil colidiu com: " + other.gameObject.name + " (Layer: " + LayerMask.LayerToName(other.gameObject.layer) + ")");
 
         // Verifica se acertou um asteroide
         Asteroid asteroid = other.GetComponent<Asteroid>();
         if (asteroid != null)
         {
             asteroid.TakeDamage(damage);
+            Debug.Log("Acertou asteroide! Dano: " + damage);
+        }
+
+        // Verifica se acertou uma nave inimiga
+        EnemyShip enemy = other.GetComponent<EnemyShip>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(damage);
+            Debug.Log("Acertou nave inimiga! Dano: " + damage);
         }
 
         // Cria efeito de impacto
