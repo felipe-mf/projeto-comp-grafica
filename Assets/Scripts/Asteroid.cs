@@ -19,6 +19,7 @@ public class Asteroid : MonoBehaviour
 
     private Rigidbody rb;
     private Vector3 randomRotation;
+    private bool hasHitPlayer = false; // Previne múltiplas colisões
 
     void Start()
     {
@@ -70,11 +71,20 @@ public class Asteroid : MonoBehaviour
             AudioSource.PlayClipAtPoint(explosionSound, transform.position);
         }
 
-        // Adiciona pontuação (se você tiver um sistema de score)
-        //GameManager gameManager = FindFirstObjectByType<GameManager>();
-        //if (gameManager != null)
+        // Adiciona pontuação (se o GameManager existir)
+        //GameObject gmObj = GameObject.Find("GameManager");
+        //if (gmObj != null)
         //{
-        //    gameManager.AddScore(scoreValue);
+        //    GameManager gameManager = gmObj.GetComponent<GameManager>();
+        //    if (gameManager != null)
+        //    {
+        //        gameManager.AddScore(scoreValue);
+        //    }
+        //}
+        //else
+        //{
+        //    // Se não houver GameManager, só mostra no console
+        //    Debug.Log("Pontos ganhos: " + scoreValue);
         //}
 
         // Fragmenta em asteroides menores
@@ -97,16 +107,23 @@ public class Asteroid : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //private bool hasHitPlayer = false; // Previne múltiplas colisões
+
     void OnCollisionEnter(Collision collision)
     {
-        // Se colidir com o player, causa dano (você pode implementar isso depois)
+        // Se colidir com o player, causa dano E destrói o asteroide
         if (collision.gameObject.CompareTag("Player"))
         {
-            // PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-            // if (playerHealth != null)
-            // {
-            //     playerHealth.TakeDamage(25f);
-            // }
+            // Previne dupla colisão
+            if (hasHitPlayer) return;
+            hasHitPlayer = true;
+
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage();
+            }
+            // Asteroide é destruído na colisão
             Die();
         }
     }
