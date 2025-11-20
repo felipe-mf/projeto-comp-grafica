@@ -1300,7 +1300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameSettings
   selectedDifficulty: 0
   easySettings:
-    numberOfEnemies: 1
+    numberOfEnemies: 5
     enemyHealth: 100
     enemySpeed: 8
     enemiesCanShoot: 0
