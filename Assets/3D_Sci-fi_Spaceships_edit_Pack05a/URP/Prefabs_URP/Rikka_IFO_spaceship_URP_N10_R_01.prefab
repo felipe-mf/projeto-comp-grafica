@@ -395,6 +395,7 @@ Transform:
   - {fileID: 9176504628067760799}
   - {fileID: 1252146911198984367}
   - {fileID: 6658290720151103509}
+  - {fileID: 1871376335482589702}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1019993653253807441
@@ -465,12 +466,12 @@ MonoBehaviour:
   canMove: 1
   moveSpeed: 10
   waypoints: []
-  canShoot: 0
-  enemyProjectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
+  canShoot: 1
+  enemyProjectilePrefab: {fileID: 2870680072709728199, guid: 0c7a8e0c468a7a846afa9147af2f973c, type: 3}
+  firePoint: {fileID: 1871376335482589702}
   shootInterval: 2
   shootRange: 50
-  explosionEffect: {fileID: 0}
+  explosionEffect: {fileID: 5418490984953664877, guid: d6f11b548aef6904ea54f6f378bd58fd, type: 3}
   explosionSound: {fileID: 0}
   damageEffect: {fileID: 0}
 --- !u!1 &6281624891184820911
@@ -740,3 +741,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &9080714826436201064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1871376335482589702}
+  m_Layer: 0
+  m_Name: EnemyFirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1871376335482589702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9080714826436201064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.022, y: 0.189, z: 0.3566}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6496439590312168384}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

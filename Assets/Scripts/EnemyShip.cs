@@ -182,11 +182,11 @@ public class EnemyShip : MonoBehaviour
         //        gameManager.AddScore(scoreValue);
         //    }
         //}
-        else
-        {
-            // Se não houver GameManager, só mostra no console
-            Debug.Log("Pontos ganhos: " + scoreValue);
-        }
+        //else
+        //{
+        // Se não houver GameManager, só mostra no console
+        Debug.Log("Pontos ganhos: " + scoreValue);
+        //}
 
         // Destroi a nave inimiga
         Destroy(gameObject);

@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3, y: -3.999939}
+  m_AnchoredPosition: {x: 3, y: -3.9999084}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &451707406
@@ -1303,7 +1303,7 @@ MonoBehaviour:
     numberOfEnemies: 5
     enemyHealth: 100
     enemySpeed: 8
-    enemiesCanShoot: 0
+    enemiesCanShoot: 1
   hardSettings:
     numberOfEnemies: 8
     enemyHealth: 150
