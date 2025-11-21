@@ -20,6 +20,11 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI gameOverText; // TextMeshPro
     public Text gameOverTextLegacy; // Unity UI Legacy (use um OU outro)
     public Button restartButton; // Botão de reiniciar (opcional)
+    public Button menuButton;
+
+    public string menuSceneName = "MainMenu";
+
+
 
     [Header("Efeitos")]
     public GameObject explosionEffect;
@@ -47,6 +52,11 @@ public class PlayerHealth : MonoBehaviour
         if (warningPanel != null) warningPanel.SetActive(false);
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
 
+
+        if (menuButton != null)
+        {
+            menuButton.onClick.AddListener(GoToMenu);
+        }
         // Configura botão de restart
         if (restartButton != null)
         {
@@ -221,6 +231,12 @@ public class PlayerHealth : MonoBehaviour
         // Mostra cursor para clicar no botão
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    void GoToMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(menuSceneName);
     }
 
     public void RestartGame()
