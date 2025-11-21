@@ -5827,7 +5827,7 @@ GameObject:
   - component: {fileID: 1987007663}
   - component: {fileID: 1987007665}
   m_Layer: 0
-  m_Name: Crosshair
+  m_Name: CrosshairManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5855,7 +5855,6 @@ MonoBehaviour:
   expandOnFire: 1
   expandAmount: 5
   expandSpeed: 10
-  crosshairImage: {fileID: 0}
 --- !u!4 &1987007664
 Transform:
   m_ObjectHideFlags: 0
