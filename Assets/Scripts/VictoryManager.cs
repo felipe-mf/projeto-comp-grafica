@@ -16,7 +16,7 @@ public class VictoryManager : MonoBehaviour
 
     [Header("Configurações")]
     public float checkInterval = 1f; // Verifica a cada 1 segundo
-    public string menuSceneName = "MainMenu";
+    public string menuSceneName = "newMainMenu";
 
     private bool hasWon = false;
     private float nextCheckTime = 0f;

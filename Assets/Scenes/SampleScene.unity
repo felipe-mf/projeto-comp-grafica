@@ -2316,9 +2316,9 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1029571657}
   gameOverText: {fileID: 0}
   gameOverTextLegacy: {fileID: 0}
-  restartButton: {fileID: 0}
+  restartButton: {fileID: 1718043914}
   menuButton: {fileID: 1616506084}
-  menuSceneName: MainMenu
+  menuSceneName: newMainMenu
   explosionEffect: {fileID: 5418490984953664877, guid: d6f11b548aef6904ea54f6f378bd58fd, type: 3}
   explosionSound: {fileID: 0}
   damageSound: {fileID: 0}
@@ -3049,9 +3049,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2060236632}
   - {fileID: 1718043913}
   - {fileID: 1616506083}
-  - {fileID: 2060236632}
   m_Father: {fileID: 434943116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3133,7 +3133,7 @@ MonoBehaviour:
   menuButton: {fileID: 930505908}
   restartButton: {fileID: 345705621}
   checkInterval: 1
-  menuSceneName: MainMenu
+  menuSceneName: newMainMenu
 --- !u!4 &1037842547
 Transform:
   m_ObjectHideFlags: 0
@@ -6064,7 +6064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
     public Button restartButton; // Botão de reiniciar (opcional)
     public Button menuButton;
 
-    public string menuSceneName = "MainMenu";
+    public string menuSceneName = "newMainMenu";
 
 
 
