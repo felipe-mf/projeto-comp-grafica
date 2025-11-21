@@ -61,4 +61,21 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Hard selecionado!");
         SceneManager.LoadScene("SampleScene");
     }
+
+    // --------------------------
+    //  Função para Fechar o Jogo
+    // --------------------------
+
+    public void QuitGame()
+    {
+        Debug.Log("Fechando o jogo...");
+
+        // Fechar o jogo no build final
+        Application.Quit();
+
+        // Fechar Play Mode no Editor
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 }
