@@ -98,7 +98,7 @@ public class PlayerHealth : MonoBehaviour
         // Toca som de dano
         if (damageSound != null && audioSource != null)
         {
-            audioSource.PlayOneShot(damageSound);
+            audioSource.PlayOneShot(damageSound, 7f);
         }
 
         if (currentHits >= maxHits)
@@ -170,7 +170,7 @@ public class PlayerHealth : MonoBehaviour
         // Toca som de explosão
         if (explosionSound != null)
         {
-            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position, 15f);
         }
 
         // Cria efeito de explosão
