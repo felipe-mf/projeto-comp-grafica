@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        // Começa mostrando só o menu principal
         ShowMainMenu();
     }
 
@@ -44,5 +44,21 @@ public class MenuManager : MonoBehaviour
         playMenu.SetActive(false);
         rankingMenu.SetActive(false);
         aboutMenu.SetActive(true);
+    }
+
+    // --------------------------
+    //  Funções para iniciar o jogo
+    // --------------------------
+
+    public void StartEasy()
+    {
+        Debug.Log("Easy selecionado!");
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void StartHard()
+    {
+        Debug.Log("Hard selecionado!");
+        SceneManager.LoadScene("SampleScene");
     }
 }
