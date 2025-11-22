@@ -246,6 +246,8 @@ MonoBehaviour:
   pulseSpeed: 2
   minAlpha: 0.2
   maxAlpha: 0.6
+  easyColor: {r: 0, g: 1, b: 1, a: 1}
+  hardColor: {r: 1, g: 0, b: 0, a: 1}
   enableEmissionPulse: 1
   minEmissionIntensity: 1
   maxEmissionIntensity: 3
@@ -1826,6 +1828,8 @@ MonoBehaviour:
   pulseSpeed: 2
   minAlpha: 0.2
   maxAlpha: 0.6
+  easyColor: {r: 0, g: 1, b: 1, a: 1}
+  hardColor: {r: 1, g: 0, b: 0, a: 1}
   enableEmissionPulse: 1
   minEmissionIntensity: 1
   maxEmissionIntensity: 3
@@ -1958,6 +1962,8 @@ MonoBehaviour:
   pulseSpeed: 2
   minAlpha: 0.2
   maxAlpha: 0.6
+  easyColor: {r: 0, g: 1, b: 1, a: 1}
+  hardColor: {r: 1, g: 0, b: 0, a: 1}
   enableEmissionPulse: 1
   minEmissionIntensity: 1
   maxEmissionIntensity: 3
@@ -2615,6 +2621,8 @@ MonoBehaviour:
   pulseSpeed: 2
   minAlpha: 0.2
   maxAlpha: 0.6
+  easyColor: {r: 0, g: 1, b: 1, a: 1}
+  hardColor: {r: 1, g: 0, b: 0, a: 1}
   enableEmissionPulse: 1
   minEmissionIntensity: 1
   maxEmissionIntensity: 3
@@ -4612,6 +4620,8 @@ MonoBehaviour:
   pulseSpeed: 2
   minAlpha: 0.2
   maxAlpha: 0.6
+  easyColor: {r: 0, g: 1, b: 1, a: 1}
+  hardColor: {r: 1, g: 0, b: 0, a: 1}
   enableEmissionPulse: 1
   minEmissionIntensity: 1
   maxEmissionIntensity: 3
@@ -4947,11 +4957,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 740251425276783069, guid: 579e809d2465e864795196e5b0545d73, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -21.233028
+      value: -21.2
       objectReference: {fileID: 0}
     - target: {fileID: 740251425276783069, guid: 579e809d2465e864795196e5b0545d73, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 187.91777
+      value: 177.2
       objectReference: {fileID: 0}
     - target: {fileID: 740251425276783069, guid: 579e809d2465e864795196e5b0545d73, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5124,6 +5134,8 @@ MonoBehaviour:
   pulseSpeed: 2
   minAlpha: 0.2
   maxAlpha: 0.6
+  easyColor: {r: 0, g: 1, b: 1, a: 1}
+  hardColor: {r: 1, g: 0, b: 0, a: 1}
   enableEmissionPulse: 1
   minEmissionIntensity: 1
   maxEmissionIntensity: 3
@@ -11214,7 +11226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 5867114785394856314, guid: 8301cd17b3332424ea9cf54bb1366b38, type: 3}
   spawnAreaCenter: {x: -25, y: 0, z: 130}
-  spawnAreaSize: {x: 150, y: 5, z: 180}
+  spawnAreaSize: {x: 145, y: 5, z: 130}
   sharedWaypoints: []
   spawnOnStart: 1
   spawnDelay: 0.5
