@@ -10,8 +10,16 @@ public class EnemyShip : MonoBehaviour
     [Header("Movimento")]
     public bool canMove = true;
     public float moveSpeed = 10f;
-    public Transform[] waypoints; // Pontos de patrulha (opcional)
+    public Transform[] waypoints;
     private int currentWaypointIndex = 0;
+
+    [Header("Movimento Aleatório")]
+    public bool useRandomMovement = true;
+    public float changeDirectionInterval = 3f;
+    public float movementRadius = 300f;
+    private Vector3 randomTargetPosition;
+    private float nextDirectionChangeTime = 0f;
+    private Vector3 spawnPosition;
 
     [Header("Combate")]
     public bool canShoot = false;
@@ -25,9 +33,10 @@ public class EnemyShip : MonoBehaviour
     [Header("Efeitos")]
     public GameObject explosionEffect;
     public AudioClip explosionSound;
-    public GameObject damageEffect; // Efeito quando leva dano
+    public GameObject damageEffect;
 
     private Rigidbody rb;
+    private bool hasHitPlayer = false;
 
     void Start()
     {
@@ -45,24 +54,80 @@ public class EnemyShip : MonoBehaviour
             player = playerObj.transform;
         }
 
-        // Se não houver waypoints, cria movimento aleatório
-        if (waypoints == null || waypoints.Length == 0)
+        // Salva posição inicial para movimento aleatório
+        spawnPosition = transform.position;
+        Debug.Log(gameObject.name + " spawn position: " + spawnPosition);
+
+        // Gera primeira posição aleatória
+        if (useRandomMovement)
         {
-            canMove = false; // Fica parado se não tiver waypoints
+            Debug.Log(gameObject.name + " usando movimento ALEATÓRIO");
+            GenerateRandomTarget();
+        }
+        else
+        {
+            Debug.Log(gameObject.name + " usando WAYPOINTS");
+            if (waypoints == null || waypoints.Length == 0)
+            {
+                canMove = false;
+                Debug.LogWarning(gameObject.name + " sem waypoints! Vai ficar parado.");
+            }
         }
     }
 
     void Update()
     {
-        if (canMove && waypoints != null && waypoints.Length > 0)
+        if (canMove)
         {
-            MoveToWaypoint();
+            if (useRandomMovement)
+            {
+                MoveRandomly();
+            }
+            else if (waypoints != null && waypoints.Length > 0)
+            {
+                MoveToWaypoint();
+            }
         }
 
         if (canShoot && player != null)
         {
             TryShootAtPlayer();
         }
+    }
+
+    void MoveRandomly()
+    {
+        // Muda de direção periodicamente
+        if (Time.time >= nextDirectionChangeTime)
+        {
+            GenerateRandomTarget();
+            nextDirectionChangeTime = Time.time + changeDirectionInterval;
+        }
+
+        // Move em direção ao alvo aleatório
+        Vector3 direction = (randomTargetPosition - transform.position).normalized;
+        rb.linearVelocity = direction * moveSpeed;
+
+        // Se chegou perto do alvo, gera novo
+        float distanceToTarget = Vector3.Distance(transform.position, randomTargetPosition);
+        if (distanceToTarget < 5f)
+        {
+            GenerateRandomTarget();
+        }
+    }
+
+    void GenerateRandomTarget()
+    {
+        // Gera posição aleatória dentro de um raio da posição de spawn
+        Vector2 randomCircle = Random.insideUnitCircle * movementRadius;
+
+        randomTargetPosition = spawnPosition + new Vector3(
+            randomCircle.x,
+            Random.Range(-10f, 10f),
+            randomCircle.y
+        );
+
+        Debug.Log(gameObject.name + " nova direção: " + randomTargetPosition);
     }
 
     void MoveToWaypoint()
@@ -72,32 +137,15 @@ public class EnemyShip : MonoBehaviour
         Transform targetWaypoint = waypoints[currentWaypointIndex];
         if (targetWaypoint == null) return;
 
-        // Move em direção ao waypoint
         Vector3 direction = (targetWaypoint.position - transform.position).normalized;
         rb.linearVelocity = direction * moveSpeed;
 
-        // OPCIONAL: Rotaciona suavemente para a direção do movimento
-        // Descomente as linhas abaixo se quiser que a nave vire na direção que está indo
-        /*
-        if (direction != Vector3.zero)
-        {
-            // Apenas rotação no eixo Y (horizontal)
-            Vector3 flatDirection = new Vector3(direction.x, 0, direction.z);
-            if (flatDirection != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(flatDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            }
-        }
-        */
-
-        // Verifica se chegou no waypoint
         if (Vector3.Distance(transform.position, targetWaypoint.position) < 2f)
         {
             currentWaypointIndex++;
             if (currentWaypointIndex >= waypoints.Length)
             {
-                currentWaypointIndex = 0; // Loop nos waypoints
+                currentWaypointIndex = 0;
             }
         }
     }
@@ -109,7 +157,6 @@ public class EnemyShip : MonoBehaviour
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        // Só atira se o player estiver no alcance
         if (distanceToPlayer <= shootRange)
         {
             ShootAtPlayer();
@@ -121,18 +168,15 @@ public class EnemyShip : MonoBehaviour
     {
         if (enemyProjectilePrefab == null || firePoint == null) return;
 
-        // Calcula direção para o player
         Vector3 directionToPlayer = (player.position - firePoint.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
 
-        // Cria o projétil
         GameObject projectile = Instantiate(enemyProjectilePrefab, firePoint.position, lookRotation);
 
-        // Se o projétil tiver Rigidbody, aplica velocidade
         Rigidbody projRb = projectile.GetComponent<Rigidbody>();
         if (projRb != null)
         {
-            projRb.linearVelocity = directionToPlayer * 50f; // Velocidade do tiro inimigo
+            projRb.linearVelocity = directionToPlayer * 50f;
         }
     }
 
@@ -142,7 +186,6 @@ public class EnemyShip : MonoBehaviour
 
         Debug.Log(gameObject.name + " levou " + damage + " de dano. Vida restante: " + health);
 
-        // Efeito visual de dano
         if (damageEffect != null)
         {
             GameObject effect = Instantiate(damageEffect, transform.position, Quaternion.identity);
@@ -159,74 +202,71 @@ public class EnemyShip : MonoBehaviour
     {
         Debug.Log(gameObject.name + " foi destruído!");
 
-        // Efeito de explosão
         if (explosionEffect != null)
         {
             GameObject explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
             Destroy(explosion, 3f);
         }
 
-        // Som de explosão
         if (explosionSound != null)
         {
             AudioSource.PlayClipAtPoint(explosionSound, transform.position);
         }
 
-        // Adiciona pontuação (se o GameManager existir)
-        //GameObject gmObj = GameObject.Find("GameManager");
-        //if (gmObj != null)
-        //{
-        //    GameManager gameManager = gmObj.GetComponent<GameManager>();
-        //    if (gameManager != null)
-        //    {
-        //        gameManager.AddScore(scoreValue);
-        //    }
-        //}
-        //else
-        //{
-        // Se não houver GameManager, só mostra no console
         Debug.Log("Pontos ganhos: " + scoreValue);
-        //}
 
-        // Destroi a nave inimiga
         Destroy(gameObject);
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        // Se colidir com o player
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Causa dano ao player (você pode implementar depois)
-            // PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-            // if (playerHealth != null) playerHealth.TakeDamage(50f);
+            if (hasHitPlayer) return;
+            hasHitPlayer = true;
 
-            // A nave inimiga também é destruída
+            Collider col = GetComponent<Collider>();
+            if (col != null) col.enabled = false;
+
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage();
+            }
+
             Die();
         }
     }
 
-    // Visualização dos waypoints no Editor
     void OnDrawGizmos()
     {
-        if (waypoints == null || waypoints.Length == 0) return;
-
-        Gizmos.color = Color.red;
-        for (int i = 0; i < waypoints.Length; i++)
+        if (useRandomMovement && Application.isPlaying)
         {
-            if (waypoints[i] != null)
-            {
-                Gizmos.DrawWireSphere(waypoints[i].position, 1f);
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(spawnPosition, movementRadius);
 
-                // Desenha linha para o próximo waypoint
-                if (i < waypoints.Length - 1 && waypoints[i + 1] != null)
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(randomTargetPosition, 2f);
+            Gizmos.DrawLine(transform.position, randomTargetPosition);
+        }
+
+        if (!useRandomMovement && waypoints != null && waypoints.Length > 0)
+        {
+            Gizmos.color = Color.red;
+            for (int i = 0; i < waypoints.Length; i++)
+            {
+                if (waypoints[i] != null)
                 {
-                    Gizmos.DrawLine(waypoints[i].position, waypoints[i + 1].position);
+                    Gizmos.DrawWireSphere(waypoints[i].position, 1f);
+
+                    if (i < waypoints.Length - 1 && waypoints[i + 1] != null)
+                    {
+                        Gizmos.DrawLine(waypoints[i].position, waypoints[i + 1].position);
+                    }
                 }
             }
         }
 
-        // Visualiza o alcance de tiro
         if (canShoot)
         {
             Gizmos.color = Color.yellow;

@@ -814,6 +814,9 @@ MonoBehaviour:
   - {fileID: 1056902656}
   - {fileID: 409585852}
   - {fileID: 1351452502}
+  useRandomMovement: 1
+  changeDirectionInterval: 3
+  movementRadius: 50
   canShoot: 0
   enemyProjectilePrefab: {fileID: 0}
   firePoint: {fileID: 0}
@@ -11211,16 +11214,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 5867114785394856314, guid: 8301cd17b3332424ea9cf54bb1366b38, type: 3}
   spawnAreaCenter: {x: -25, y: 0, z: 130}
-  spawnAreaSize: {x: 70, y: 5, z: 80}
-  sharedWaypoints:
-  - {fileID: 1059150067}
-  - {fileID: 703014661}
-  - {fileID: 760682851}
-  - {fileID: 1203859924}
-  - {fileID: 1420398588}
-  - {fileID: 1056902656}
-  - {fileID: 409585852}
-  - {fileID: 1351452502}
+  spawnAreaSize: {x: 150, y: 5, z: 180}
+  sharedWaypoints: []
   spawnOnStart: 1
   spawnDelay: 0.5
 --- !u!4 &2107390777

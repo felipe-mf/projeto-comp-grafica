@@ -466,6 +466,9 @@ MonoBehaviour:
   canMove: 1
   moveSpeed: 10
   waypoints: []
+  useRandomMovement: 1
+  changeDirectionInterval: 3
+  movementRadius: 300
   canShoot: 1
   enemyProjectilePrefab: {fileID: 2870680072709728199, guid: 0c7a8e0c468a7a846afa9147af2f973c, type: 3}
   firePoint: {fileID: 1871376335482589702}
