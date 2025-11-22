@@ -6,7 +6,7 @@ public class GameTimer : MonoBehaviour
 {
     [Header("Configurações do Timer")]
     [Tooltip("Tempo total em segundos (420 = 7 minutos)")]
-    public float totalTime = 420f; // 7 minutos = 420 segundos
+    public float totalTime = 420f; // 7 minutos
 
     [Header("UI")]
     [Tooltip("Texto para mostrar o timer (TextMeshPro)")]
@@ -27,8 +27,8 @@ public class GameTimer : MonoBehaviour
     public PlayerHealth playerHealth;
 
     [Header("Sons (Opcional)")]
-    public AudioClip tickSound; // Som de "tick" nos últimos segundos
-    public AudioClip timeUpSound; // Som quando o tempo acaba
+    public AudioClip tickSound;
+    public AudioClip timeUpSound;
 
     private float currentTime;
     private bool isRunning = true;
@@ -39,7 +39,6 @@ public class GameTimer : MonoBehaviour
     {
         currentTime = totalTime;
 
-        // Busca PlayerHealth se não estiver atribuído
         if (playerHealth == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -54,7 +53,6 @@ public class GameTimer : MonoBehaviour
             Debug.LogError("GameTimer: PlayerHealth não encontrado! Atribua manualmente ou adicione tag 'Player'.");
         }
 
-        // Configura AudioSource
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null && (tickSound != null || timeUpSound != null))
         {
@@ -68,23 +66,18 @@ public class GameTimer : MonoBehaviour
     {
         if (!isRunning) return;
 
-        // Decrementa o tempo
         currentTime -= Time.deltaTime;
 
-        // Atualiza o display
         UpdateTimerDisplay();
 
-        // Verifica aviso de tempo acabando
         if (currentTime <= warningTime && !hasWarned)
         {
             hasWarned = true;
             StartWarning();
         }
 
-        // Som de tick nos últimos 10 segundos
         if (currentTime <= 10f && currentTime > 0f && tickSound != null)
         {
-            // Toca tick a cada segundo
             if (Mathf.Ceil(currentTime) != Mathf.Ceil(currentTime + Time.deltaTime))
             {
                 if (audioSource != null)
@@ -94,7 +87,6 @@ public class GameTimer : MonoBehaviour
             }
         }
 
-        // Tempo acabou
         if (currentTime <= 0f)
         {
             TimeUp();
@@ -103,21 +95,17 @@ public class GameTimer : MonoBehaviour
 
     void UpdateTimerDisplay()
     {
-        // Formata o tempo como MM:SS
         int minutes = Mathf.FloorToInt(currentTime / 60f);
         int seconds = Mathf.FloorToInt(currentTime % 60f);
         string timeString = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        // Atualiza o texto (TextMeshPro)
         if (timerText != null)
         {
             timerText.text = timeString;
         }
 
-        // Muda cor se está em aviso
         if (currentTime <= warningTime)
         {
-            // Efeito de piscar nos últimos segundos
             if (currentTime <= 10f)
             {
                 float alpha = Mathf.PingPong(Time.time * 2f, 1f);
@@ -139,28 +127,24 @@ public class GameTimer : MonoBehaviour
     void StartWarning()
     {
         Debug.Log("AVISO: Tempo acabando!");
-        // Você pode adicionar efeitos visuais/sonoros aqui
     }
 
     void TimeUp()
     {
-        if (!isRunning) return; // Evita chamar múltiplas vezes
+        if (!isRunning) return;
 
         isRunning = false;
         currentTime = 0f;
 
         Debug.Log("TEMPO ESGOTADO!");
 
-        // Toca som de tempo acabado
         if (timeUpSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(timeUpSound);
         }
 
-        // Atualiza display para 00:00
         UpdateTimerDisplay();
 
-        // Chama Die() do PlayerHealth
         if (playerHealth != null)
         {
             playerHealth.Die();

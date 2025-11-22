@@ -5,7 +5,7 @@ public class EnemyProjectile : MonoBehaviour
     [Header("Configurações")]
     public float speed = 50f;
     public float lifetime = 5f;
-    public float damage = 1f; // 1 hit = 1 vida do player
+    public float damage = 1f;
 
     [Header("Efeitos")]
     public GameObject impactEffect;
@@ -23,13 +23,11 @@ public class EnemyProjectile : MonoBehaviour
             return;
         }
 
-        // Se não tiver velocidade já aplicada pelo EnemyShip, aplica agora
         if (rb.linearVelocity.magnitude < 1f)
         {
             rb.linearVelocity = transform.forward * speed;
         }
 
-        // Destroi após o tempo de vida
         Destroy(gameObject, lifetime);
 
         Debug.Log("Projétil inimigo criado! Velocidade: " + rb.linearVelocity);
@@ -39,7 +37,6 @@ public class EnemyProjectile : MonoBehaviour
     {
         Debug.Log("Tiro inimigo colidiu com: " + other.gameObject.name);
 
-        // Se acertar o player
         if (other.CompareTag("Player"))
         {
             PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
@@ -50,14 +47,12 @@ public class EnemyProjectile : MonoBehaviour
             }
         }
 
-        // Cria efeito de impacto
         if (impactEffect != null)
         {
             GameObject effect = Instantiate(impactEffect, transform.position, Quaternion.identity);
             Destroy(effect, 2f);
         }
 
-        // Destroi o projétil
         Destroy(gameObject);
     }
 }

@@ -5,16 +5,14 @@ public class GameSettings : MonoBehaviour
     // Singleton - só existe uma instância em todo o jogo
     public static GameSettings Instance { get; private set; }
 
-    //[Header("Configurações de Dificuldade")]
     public enum Difficulty
     {
-        Easy,    // Fácil
-        Hard     // Difícil
+        Easy,
+        Hard
     }
 
     public Difficulty selectedDifficulty = Difficulty.Easy;
 
-    // Configurações por dificuldade
     [System.Serializable]
     public class DifficultySettings
     {
@@ -44,7 +42,6 @@ public class GameSettings : MonoBehaviour
 
     void Awake()
     {
-        // Implementa Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -57,14 +54,12 @@ public class GameSettings : MonoBehaviour
         }
     }
 
-    // Método para definir dificuldade
     public void SetDifficulty(Difficulty difficulty)
     {
         selectedDifficulty = difficulty;
         Debug.Log("Dificuldade definida: " + difficulty);
     }
 
-    // Retorna as configurações da dificuldade atual
     public DifficultySettings GetCurrentSettings()
     {
         if (selectedDifficulty == Difficulty.Easy)
@@ -77,7 +72,6 @@ public class GameSettings : MonoBehaviour
         }
     }
 
-    // Métodos auxiliares
     public int GetEnemyCount()
     {
         return GetCurrentSettings().numberOfEnemies;

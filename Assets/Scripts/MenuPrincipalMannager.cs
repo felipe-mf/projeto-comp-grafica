@@ -46,14 +46,11 @@ public class MenuManager : MonoBehaviour
         aboutMenu.SetActive(true);
     }
 
-    // --------------------------
-    //  Funções para iniciar o jogo
-    // --------------------------
+
     public void StartEasy()
     {
         Debug.Log("Easy selecionado!");
 
-        // ===== DEFINE A DIFICULDADE =====
         if (GameSettings.Instance != null)
         {
             GameSettings.Instance.SetDifficulty(GameSettings.Difficulty.Easy);
@@ -72,7 +69,6 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log("Hard selecionado!");
 
-        // ===== DEFINE A DIFICULDADE =====
         if (GameSettings.Instance != null)
         {
             GameSettings.Instance.SetDifficulty(GameSettings.Difficulty.Hard);
@@ -87,7 +83,6 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
     }
 
-    // Cria GameSettings se não existir (fallback)
     void CreateGameSettings(GameSettings.Difficulty difficulty)
     {
         GameObject settingsObj = new GameObject("GameSettings");
@@ -96,13 +91,10 @@ public class MenuManager : MonoBehaviour
         Debug.Log($"GameSettings criado com dificuldade: {difficulty}");
     }
 
-    // --------------------------
-    //  Função para Fechar o Jogo
-    // --------------------------
+
     public void QuitGame()
     {
         Debug.Log("Fechando o jogo...");
-        // Fechar o jogo no build final
         Application.Quit();
 
         // Fechar Play Mode no Editor

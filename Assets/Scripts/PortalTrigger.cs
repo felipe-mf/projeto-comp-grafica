@@ -13,35 +13,30 @@ public class PortalTrigger : MonoBehaviour
 
     void Start()
     {
-        // Busca o VictoryManager
         victoryManager = FindFirstObjectByType<VictoryManager>();
 
-        // Ativa partículas se tiver
         if (portalParticles != null)
         {
             portalParticles.Play();
         }
 
-        // Toca som do portal
         if (portalSound != null)
         {
             AudioSource audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.clip = portalSound;
             audioSource.loop = true;
-            audioSource.spatialBlend = 1f; // Som 3D
+            audioSource.spatialBlend = 1f;
             audioSource.Play();
         }
     }
 
     void Update()
     {
-        // Rotaciona o portal constantemente
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Verifica se é o player
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player entrou no portal!");
@@ -51,7 +46,6 @@ public class PortalTrigger : MonoBehaviour
                 victoryManager.TriggerVictory();
             }
 
-            // Opcional: Efeito visual de "sugar" o player
             StartCoroutine(SuckPlayerIntoPortal(other.gameObject));
         }
     }
@@ -74,7 +68,6 @@ public class PortalTrigger : MonoBehaviour
             yield return null;
         }
 
-        // Esconde o player
         player.SetActive(false);
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro; // Adiciona suporte para TextMeshPro
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,16 +10,16 @@ public class PlayerHealth : MonoBehaviour
     private int currentHits = 0;
 
     [Header("UI - Mensagem de Aviso")]
-    public GameObject warningPanel; // Painel com fundo escuro
-    public TextMeshProUGUI warningText; // TextMeshPro
-    public Text warningTextLegacy; // Unity UI Legacy (use um OU outro)
-    public float warningDuration = 2f; // Tempo que a mensagem fica na tela
+    public GameObject warningPanel;
+    public TextMeshProUGUI warningText;
+    public Text warningTextLegacy;
+    public float warningDuration = 2f;
 
     [Header("UI - Game Over")]
-    public GameObject gameOverPanel; // Painel de Game Over
-    public TextMeshProUGUI gameOverText; // TextMeshPro
-    public Text gameOverTextLegacy; // Unity UI Legacy (use um OU outro)
-    public Button restartButton; // Botão de reiniciar (opcional)
+    public GameObject gameOverPanel;
+    public TextMeshProUGUI gameOverText;
+    public Text gameOverTextLegacy;
+    public Button restartButton;
     public Button menuButton;
 
     public string menuSceneName = "newMainMenu";
@@ -32,13 +32,13 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip damageSound;
 
     [Header("Configurações")]
-    public float respawnDelay = 2f; // Tempo antes de explodir/game over
-    public bool destroyShipOnDeath = true; // Se true, destrói a nave
-    public float damageCooldown = 1f; // Tempo de invencibilidade após levar dano
+    public float respawnDelay = 2f;
+    public bool destroyShipOnDeath = true;
+    public float damageCooldown = 1f;
 
     private AudioSource audioSource;
     private bool isDead = false;
-    private float lastDamageTime = -999f; // Controle de cooldown
+    private float lastDamageTime = -999f;
 
     void Start()
     {
@@ -48,7 +48,6 @@ public class PlayerHealth : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        // Esconde UI inicial
         if (warningPanel != null) warningPanel.SetActive(false);
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
 
@@ -57,7 +56,6 @@ public class PlayerHealth : MonoBehaviour
         {
             menuButton.onClick.AddListener(GoToMenu);
         }
-        // Configura botão de restart
         if (restartButton != null)
         {
             restartButton.onClick.AddListener(RestartGame);
@@ -68,7 +66,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;
 
-        // Verifica se colidiu com asteroide ou parede
         bool isAsteroid = collision.gameObject.GetComponent<Asteroid>() != null;
         bool isWall = collision.gameObject.CompareTag("Wall") || collision.gameObject.layer == LayerMask.NameToLayer("Default");
         bool isEnemy = collision.gameObject.GetComponent<EnemyShip>() != null;
@@ -83,7 +80,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;
 
-        // Verifica cooldown (evita múltiplas colisões em sequência)
         if (Time.time - lastDamageTime < damageCooldown)
         {
             Debug.Log("Ainda em cooldown, dano ignorado");
@@ -95,7 +91,6 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("Player levou dano! Colisões: " + currentHits + "/" + maxHits);
 
-        // Toca som de dano
         if (damageSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(damageSound, 7f);
@@ -103,12 +98,10 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHits >= maxHits)
         {
-            // Morreu!
             Die();
         }
         else
         {
-            // Ainda está vivo - mostra aviso
             ShowWarning();
         }
     }
@@ -121,11 +114,9 @@ public class PlayerHealth : MonoBehaviour
         {
             warningPanel.SetActive(true);
 
-            // Esconde após alguns segundos
             Invoke("HideWarning", warningDuration);
         }
 
-        // Efeito visual de "tremor" ou piscar (opcional)
         StartCoroutine(FlashEffect());
     }
 
@@ -139,19 +130,16 @@ public class PlayerHealth : MonoBehaviour
 
     System.Collections.IEnumerator FlashEffect()
     {
-        // Faz a nave "piscar" brevemente
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
         for (int i = 0; i < 3; i++)
         {
-            // Esconde
             foreach (Renderer rend in renderers)
             {
                 if (rend != null) rend.enabled = false;
             }
             yield return new WaitForSeconds(0.1f);
 
-            // Mostra
             foreach (Renderer rend in renderers)
             {
                 if (rend != null) rend.enabled = true;
@@ -167,20 +155,17 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("GAME OVER - Player morreu!");
 
-        // Toca som de explosão
         if (explosionSound != null)
         {
             AudioSource.PlayClipAtPoint(explosionSound, transform.position, 15f);
         }
 
-        // Cria efeito de explosão
         if (explosionEffect != null)
         {
             GameObject explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
             Destroy(explosion, 3f);
         }
 
-        // Desabilita controles
         SpaceshipController controller = GetComponent<SpaceshipController>();
         if (controller != null)
         {
@@ -193,7 +178,6 @@ public class PlayerHealth : MonoBehaviour
             weapon.enabled = false;
         }
 
-        // Para a nave
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -201,13 +185,10 @@ public class PlayerHealth : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
-        // Mostra Game Over após delay
         Invoke("ShowGameOver", respawnDelay);
 
-        // Destrói a nave (opcional)
         if (destroyShipOnDeath)
         {
-            // Esconde o modelo visual
             Renderer[] renderers = GetComponentsInChildren<Renderer>();
             foreach (Renderer rend in renderers)
             {
@@ -225,10 +206,6 @@ public class PlayerHealth : MonoBehaviour
             gameOverPanel.SetActive(true);
         }
 
-        // Pausa o jogo (opcional)
-        // Time.timeScale = 0f;
-
-        // Mostra cursor para clicar no botão
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -241,14 +218,12 @@ public class PlayerHealth : MonoBehaviour
 
     public void RestartGame()
     {
-        // Despausa o jogo
         Time.timeScale = 1f;
 
-        // Recarrega a cena atual
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // Método público para curar (se você quiser power-ups depois)
+    // Método para curar (se formos colocar power-ups)
     public void Heal()
     {
         if (currentHits > 0)

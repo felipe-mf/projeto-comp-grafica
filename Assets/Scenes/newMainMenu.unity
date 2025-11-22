@@ -997,7 +997,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.534
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2285,7 +2285,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Este \xE9 um jogo 3D de batalha espacial,\ndesenvolvido por Jo\xE3o Ot\xE1vio,
-    Felipe Marostega\ne Jean Bonadeu, alunos do curso de Ci\xEAncia da\nComputa\xE7\xE3o
+    Felipe Marostega\ne Jean Bonadeo Dal Santo, alunos do curso de Ci\xEAncia da\nComputa\xE7\xE3o
     na Universidade de Passo Fundo.\nO projeto foi criado durante a disciplina de\nComputa\xE7\xE3o
     Gr\xE1fica e Realidade Virtual,\nministrada pelo Prof. Dr. Rafael Rieder.\nTodo
     o desenvolvimento foi realizado utilizando a\ngame engine Unity."

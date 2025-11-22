@@ -28,7 +28,6 @@ public class Crosshair : MonoBehaviour
     private float currentExpansion = 0f;
     private bool isExpanding = false;
 
-    // Singleton
     public static Crosshair Instance { get; private set; }
 
     public enum CrosshairType
@@ -40,7 +39,6 @@ public class Crosshair : MonoBehaviour
 
     void Awake()
     {
-        // Implementa Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -57,7 +55,6 @@ public class Crosshair : MonoBehaviour
 
     void Start()
     {
-        // Só cria a mira se não estiver no menu
         if (!IsInMenuScene())
         {
             CreateCrosshair();
@@ -76,7 +73,6 @@ public class Crosshair : MonoBehaviour
 
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
-        // Se está no menu, destrói a mira. Se está no jogo, cria a mira.
         if (IsInMenuScene())
         {
             DestroyCrosshair();
@@ -109,11 +105,9 @@ public class Crosshair : MonoBehaviour
 
     void CreateCrosshair()
     {
-        // Se já está no menu ou já existe mira, não cria
         if (IsInMenuScene() || crosshairObject != null) return;
 
-        // Encontra ou cria Canvas
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = FindFirstObjectByType<Canvas>();
         if (canvas == null)
         {
             GameObject canvasObj = new GameObject("CrosshairCanvas");
@@ -123,7 +117,6 @@ public class Crosshair : MonoBehaviour
             canvasObj.AddComponent<GraphicRaycaster>();
         }
 
-        // Cria objeto da mira
         crosshairObject = new GameObject("Crosshair");
         crosshairObject.transform.SetParent(canvas.transform, false);
 
@@ -133,7 +126,6 @@ public class Crosshair : MonoBehaviour
         crosshairRect.pivot = new Vector2(0.5f, 0.5f);
         crosshairRect.anchoredPosition = screenOffset;
 
-        // Cria a mira baseada no tipo
         switch (crosshairType)
         {
             case CrosshairType.Dot:
@@ -268,7 +260,6 @@ public class Crosshair : MonoBehaviour
     {
         crosshairType = newType;
 
-        // Se não está no menu, recria a mira
         if (!IsInMenuScene())
         {
             DestroyCrosshair();

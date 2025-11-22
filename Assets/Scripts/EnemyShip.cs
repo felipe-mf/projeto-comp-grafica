@@ -47,18 +47,15 @@ public class EnemyShip : MonoBehaviour
             rb.useGravity = false;
         }
 
-        // Encontra o player
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
             player = playerObj.transform;
         }
 
-        // Salva posição inicial para movimento aleatório
         spawnPosition = transform.position;
         Debug.Log(gameObject.name + " spawn position: " + spawnPosition);
 
-        // Gera primeira posição aleatória
         if (useRandomMovement)
         {
             Debug.Log(gameObject.name + " usando movimento ALEATÓRIO");
@@ -97,18 +94,15 @@ public class EnemyShip : MonoBehaviour
 
     void MoveRandomly()
     {
-        // Muda de direção periodicamente
         if (Time.time >= nextDirectionChangeTime)
         {
             GenerateRandomTarget();
             nextDirectionChangeTime = Time.time + changeDirectionInterval;
         }
 
-        // Move em direção ao alvo aleatório
         Vector3 direction = (randomTargetPosition - transform.position).normalized;
         rb.linearVelocity = direction * moveSpeed;
 
-        // Se chegou perto do alvo, gera novo
         float distanceToTarget = Vector3.Distance(transform.position, randomTargetPosition);
         if (distanceToTarget < 5f)
         {
@@ -118,7 +112,6 @@ public class EnemyShip : MonoBehaviour
 
     void GenerateRandomTarget()
     {
-        // Gera posição aleatória dentro de um raio da posição de spawn
         Vector2 randomCircle = Random.insideUnitCircle * movementRadius;
 
         randomTargetPosition = spawnPosition + new Vector3(

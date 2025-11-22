@@ -24,7 +24,6 @@ public class CrosshairMenu : MonoBehaviour
 
     private void Update()
     {
-        // Se ainda não encontrou o dropdown, continua procurando
         if ((!dropdownFound || crosshairDropdown == null) && IsInMenuScene())
         {
             FindAndSetupDropdown();
@@ -40,7 +39,6 @@ public class CrosshairMenu : MonoBehaviour
             Debug.Log("Dropdown CONFIGURADO com sucesso!");
         }
 
-        // Tenta encontrar o dropdown
         if (crosshairDropdown == null)
         {
             FindDropdownByTag();
@@ -56,7 +54,6 @@ public class CrosshairMenu : MonoBehaviour
             FindAnyDropdown();
         }
 
-        // Se encontrou, configura
         if (crosshairDropdown != null)
         {
             SetupDropdown();
@@ -109,10 +106,8 @@ public class CrosshairMenu : MonoBehaviour
     {
         if (crosshairDropdown == null) return;
 
-        // Remove listeners antigos
         crosshairDropdown.onValueChanged.RemoveAllListeners();
 
-        // Limpa e configura as opções
         crosshairDropdown.ClearOptions();
 
         var options = new System.Collections.Generic.List<string>
@@ -121,10 +116,8 @@ public class CrosshairMenu : MonoBehaviour
         };
         crosshairDropdown.AddOptions(options);
 
-        // Atualiza a seleção baseada no Crosshair atual
         UpdateDropdownSelection();
 
-        // Adiciona o listener
         crosshairDropdown.onValueChanged.AddListener(OnCrosshairChanged);
 
         Debug.Log("Dropdown totalmente configurado! Valor: " + crosshairDropdown.value);
@@ -136,13 +129,11 @@ public class CrosshairMenu : MonoBehaviour
         {
             int currentValue = (int)Crosshair.Instance.crosshairType;
 
-            // Remove listener temporariamente para não triggerar evento
             crosshairDropdown.onValueChanged.RemoveListener(OnCrosshairChanged);
 
             crosshairDropdown.value = currentValue;
             crosshairDropdown.captionText.text = crosshairDropdown.options[currentValue].text;
 
-            // Readiciona o listener
             crosshairDropdown.onValueChanged.AddListener(OnCrosshairChanged);
 
             Debug.Log("Dropdown selecionado: " + currentValue + " - " + Crosshair.Instance.crosshairType);
@@ -163,7 +154,6 @@ public class CrosshairMenu : MonoBehaviour
         }
     }
 
-    // forçar reconexão
     public void ForceReconnectDropdown()
     {
         dropdownFound = false;

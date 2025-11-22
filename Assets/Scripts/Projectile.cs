@@ -23,10 +23,8 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        // Aplica velocidade inicial
         rb.linearVelocity = transform.forward * speed;
 
-        // Destroi após o tempo de vida
         Destroy(gameObject, lifetime);
 
         Debug.Log("Projectile criado! Velocidade: " + rb.linearVelocity + " | Posição: " + transform.position);
@@ -36,7 +34,6 @@ public class Projectile : MonoBehaviour
     {
         Debug.Log("Projétil colidiu com: " + other.gameObject.name + " (Layer: " + LayerMask.LayerToName(other.gameObject.layer) + ")");
 
-        // Verifica se acertou um asteroide
         Asteroid asteroid = other.GetComponent<Asteroid>();
         if (asteroid != null)
         {
@@ -44,7 +41,6 @@ public class Projectile : MonoBehaviour
             Debug.Log("Acertou asteroide! Dano: " + damage);
         }
 
-        // Verifica se acertou uma nave inimiga
         EnemyShip enemy = other.GetComponent<EnemyShip>();
         if (enemy != null)
         {
@@ -52,14 +48,12 @@ public class Projectile : MonoBehaviour
             Debug.Log("Acertou nave inimiga! Dano: " + damage);
         }
 
-        // Cria efeito de impacto
         if (impactEffect != null)
         {
             GameObject effect = Instantiate(impactEffect, transform.position, Quaternion.identity);
             Destroy(effect, 2f);
         }
 
-        // Destroi o projétil
         Destroy(gameObject);
     }
 }

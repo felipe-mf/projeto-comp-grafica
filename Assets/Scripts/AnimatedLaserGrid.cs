@@ -16,7 +16,7 @@ public class AnimatedLaserGrid : MonoBehaviour
 
     [Header("Cores por Dificuldade")]
     [Tooltip("Cor no modo fácil")]
-    public Color easyColor = new Color(0f, 1f, 1f); // Ciano (padrão)
+    public Color easyColor = new Color(0f, 1f, 1f); // Ciano
 
     [Tooltip("Cor no modo difícil")]
     public Color hardColor = Color.red; // Vermelho
@@ -47,7 +47,6 @@ public class AnimatedLaserGrid : MonoBehaviour
 
     void Start()
     {
-        // Pega o renderer e cria uma instância única do material
         Renderer renderer = GetComponent<Renderer>();
 
         if (renderer == null)
@@ -57,18 +56,14 @@ public class AnimatedLaserGrid : MonoBehaviour
             return;
         }
 
-        // Cria instância do material (não afeta outros objetos)
         material = renderer.material;
 
-        // ===== DEFINE COR BASEADA NA DIFICULDADE =====
         SetColorBasedOnDifficulty();
 
         baseColor = material.color;
 
-        // Detecta qual tipo de shader está sendo usado
         usesCustomShader = material.shader.name.Contains("LaserGrid");
 
-        // Salva valores originais
         if (material.HasProperty("_Alpha"))
         {
             originalAlpha = material.GetFloat("_Alpha");
@@ -87,7 +82,6 @@ public class AnimatedLaserGrid : MonoBehaviour
 
     void SetColorBasedOnDifficulty()
     {
-        // Verifica se GameSettings existe
         if (GameSettings.Instance == null)
         {
             Debug.LogWarning("GameSettings não encontrado! Usando cor padrão (Easy).");
@@ -96,10 +90,8 @@ public class AnimatedLaserGrid : MonoBehaviour
             return;
         }
 
-        // Pega a dificuldade atual
         GameSettings.Difficulty currentDifficulty = GameSettings.Instance.selectedDifficulty;
 
-        // Define cor baseada na dificuldade
         Color selectedColor;
         if (currentDifficulty == GameSettings.Difficulty.Hard)
         {
@@ -117,21 +109,17 @@ public class AnimatedLaserGrid : MonoBehaviour
 
     void ApplyColorToMaterial(Color color)
     {
-        // Aplica cor no shader custom
         if (material.HasProperty("_Color"))
         {
             material.SetColor("_Color", color);
         }
 
-        // Aplica cor no material padrão
         Color currentColor = material.color;
         currentColor.r = color.r;
         currentColor.g = color.g;
         currentColor.b = color.b;
-        // Mantém o alpha atual
         material.color = currentColor;
 
-        // Aplica na emissão também (se tiver)
         if (material.HasProperty("_EmissionColor"))
         {
             material.SetColor("_EmissionColor", color * 2f);
@@ -144,44 +132,36 @@ public class AnimatedLaserGrid : MonoBehaviour
     {
         if (material == null) return;
 
-        // Calcula o pulso usando seno (movimento suave)
-        float pulse = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f; // Normaliza 0-1
+        float pulse = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f;
 
-        // ===== ANIMAÇÃO DO ALPHA (Transparência) =====
         float currentAlpha = Mathf.Lerp(minAlpha, maxAlpha, pulse);
 
         if (usesCustomShader && material.HasProperty("_Alpha"))
         {
-            // Shader custom: usa propriedade _Alpha
             material.SetFloat("_Alpha", currentAlpha);
         }
         else
         {
-            // Shader padrão: usa color.a
             Color newColor = baseColor;
             newColor.a = currentAlpha;
             material.color = newColor;
         }
 
-        // ===== ANIMAÇÃO DA EMISSÃO (Brilho) =====
         if (enableEmissionPulse)
         {
             float emissionIntensity = Mathf.Lerp(minEmissionIntensity, maxEmissionIntensity, pulse);
 
             if (material.HasProperty("_EmissionStrength"))
             {
-                // Shader custom: usa _EmissionStrength
                 material.SetFloat("_EmissionStrength", emissionIntensity);
             }
             else if (material.HasProperty("_EmissionColor"))
             {
-                // Shader padrão: usa _EmissionColor
-                Color emissionColor = baseColor; // Usa a cor base (vermelha ou ciano)
+                Color emissionColor = baseColor;
                 material.SetColor("_EmissionColor", emissionColor * emissionIntensity);
             }
         }
 
-        // ===== SCROLL DA TEXTURA =====
         if (enableScroll && material.mainTexture != null)
         {
             textureOffset += scrollSpeed * Time.deltaTime;
@@ -191,14 +171,12 @@ public class AnimatedLaserGrid : MonoBehaviour
 
     void OnDestroy()
     {
-        // Limpa o material instanciado
         if (material != null)
         {
             Destroy(material);
         }
     }
 
-    // Método público para mudar cor em tempo real (útil para testes)
     public void SetColor(Color newColor)
     {
         if (material != null)
@@ -207,7 +185,6 @@ public class AnimatedLaserGrid : MonoBehaviour
         }
     }
 
-    // Método para debug - mostra valores atuais
     void OnGUI()
     {
         if (material != null && Input.GetKey(KeyCode.F1))

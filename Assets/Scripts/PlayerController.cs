@@ -3,18 +3,18 @@ using UnityEngine;
 public class SpaceshipController : MonoBehaviour
 {
     [Header("Referências")]
-    public Transform thisShip; // Modelo visual (filho)
+    public Transform thisShip;
     public Rigidbody r;
 
     [Header("Configurações de movimento")]
     public float turnSpeed = 60f;
     public float thrustForce = 40f;
     public float maxSpeed = 50f;
-    public float damping = 0.98f; // reduz deslizamento lateral
+    public float damping = 0.98f;
 
     [Header("Movimento Automático")]
-    public bool autoThrust = true; // Movimento constante para frente
-    public float autoThrustSpeed = 20f; // Velocidade automática
+    public bool autoThrust = true;
+    public float autoThrustSpeed = 20f;
 
     private void Start()
     {
@@ -33,7 +33,6 @@ public class SpaceshipController : MonoBehaviour
 
     void Turn()
     {
-        // Rotação suave igual ao script original
         float yaw = turnSpeed * Time.fixedDeltaTime * Input.GetAxis("Horizontal"); // A/D
         float pitch = turnSpeed * Time.fixedDeltaTime * Input.GetAxis("Vertical"); // W/S
         float roll = turnSpeed * Time.fixedDeltaTime * Input.GetAxis("Rotate");   // Q/E
@@ -61,24 +60,20 @@ public class SpaceshipController : MonoBehaviour
         }
         else if (!autoThrust)
         {
-            // Aplica leve amortecimento apenas se NÃO tiver movimento automático
+            // Aplica leve amortecimento apenas se nao tiver movimento automático
             r.linearVelocity *= damping;
         }
     }
 
     void LimitVelocity()
     {
-        // Mantém velocidade máxima e corrige movimento "torto"
         Vector3 localVel = transform.InverseTransformDirection(r.linearVelocity);
 
-        // Z = frente/trás, X/Y = lateral/vertical
-        localVel.x *= 0.9f; // reduz deriva lateral
+        localVel.x *= 0.9f;
         localVel.y *= 0.9f;
 
-        // limita a velocidade máxima
         localVel.z = Mathf.Clamp(localVel.z, -maxSpeed, maxSpeed);
 
-        // aplica de volta
         r.linearVelocity = transform.TransformDirection(localVel);
     }
 }
