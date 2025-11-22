@@ -49,27 +49,59 @@ public class MenuManager : MonoBehaviour
     // --------------------------
     //  Funções para iniciar o jogo
     // --------------------------
-
     public void StartEasy()
     {
         Debug.Log("Easy selecionado!");
+
+        // ===== DEFINE A DIFICULDADE =====
+        if (GameSettings.Instance != null)
+        {
+            GameSettings.Instance.SetDifficulty(GameSettings.Difficulty.Easy);
+            Debug.Log("Dificuldade definida para EASY");
+        }
+        else
+        {
+            Debug.LogWarning("GameSettings não encontrado! Criando um novo...");
+            CreateGameSettings(GameSettings.Difficulty.Easy);
+        }
+
         SceneManager.LoadScene("SampleScene");
     }
 
     public void StartHard()
     {
         Debug.Log("Hard selecionado!");
+
+        // ===== DEFINE A DIFICULDADE =====
+        if (GameSettings.Instance != null)
+        {
+            GameSettings.Instance.SetDifficulty(GameSettings.Difficulty.Hard);
+            Debug.Log("Dificuldade definida para HARD");
+        }
+        else
+        {
+            Debug.LogWarning("GameSettings não encontrado! Criando um novo...");
+            CreateGameSettings(GameSettings.Difficulty.Hard);
+        }
+
         SceneManager.LoadScene("SampleScene");
+    }
+
+    // Cria GameSettings se não existir (fallback)
+    void CreateGameSettings(GameSettings.Difficulty difficulty)
+    {
+        GameObject settingsObj = new GameObject("GameSettings");
+        GameSettings settings = settingsObj.AddComponent<GameSettings>();
+        settings.SetDifficulty(difficulty);
+        Debug.Log($"GameSettings criado com dificuldade: {difficulty}");
     }
 
     // --------------------------
     //  Função para Fechar o Jogo
     // --------------------------
-
     public void QuitGame()
     {
         Debug.Log("Fechando o jogo...");
-
         // Fechar o jogo no build final
         Application.Quit();
 

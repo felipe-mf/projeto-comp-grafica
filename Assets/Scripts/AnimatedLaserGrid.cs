@@ -14,6 +14,13 @@ public class AnimatedLaserGrid : MonoBehaviour
     [Range(0f, 1f)]
     public float maxAlpha = 0.6f;
 
+    [Header("Cores por Dificuldade")]
+    [Tooltip("Cor no modo fácil")]
+    public Color easyColor = new Color(0f, 1f, 1f); // Ciano (padrão)
+
+    [Tooltip("Cor no modo difícil")]
+    public Color hardColor = Color.red; // Vermelho
+
     [Header("Efeito Extra (Opcional)")]
     [Tooltip("Ativa pulsação do brilho (emission)")]
     public bool enableEmissionPulse = false;
@@ -52,6 +59,10 @@ public class AnimatedLaserGrid : MonoBehaviour
 
         // Cria instância do material (não afeta outros objetos)
         material = renderer.material;
+
+        // ===== DEFINE COR BASEADA NA DIFICULDADE =====
+        SetColorBasedOnDifficulty();
+
         baseColor = material.color;
 
         // Detecta qual tipo de shader está sendo usado
@@ -71,6 +82,62 @@ public class AnimatedLaserGrid : MonoBehaviour
         Debug.Log($"AnimatedLaserGrid iniciado em: {gameObject.name}");
         Debug.Log($"Material: {material.shader.name}");
         Debug.Log($"Shader Custom detectado: {usesCustomShader}");
+        Debug.Log($"Cor definida: {baseColor}");
+    }
+
+    void SetColorBasedOnDifficulty()
+    {
+        // Verifica se GameSettings existe
+        if (GameSettings.Instance == null)
+        {
+            Debug.LogWarning("GameSettings não encontrado! Usando cor padrão (Easy).");
+            baseColor = easyColor;
+            ApplyColorToMaterial(easyColor);
+            return;
+        }
+
+        // Pega a dificuldade atual
+        GameSettings.Difficulty currentDifficulty = GameSettings.Instance.selectedDifficulty;
+
+        // Define cor baseada na dificuldade
+        Color selectedColor;
+        if (currentDifficulty == GameSettings.Difficulty.Hard)
+        {
+            selectedColor = hardColor;
+            Debug.Log("Dificuldade DIFÍCIL detectada - Paredes VERMELHAS");
+        }
+        else
+        {
+            selectedColor = easyColor;
+            Debug.Log("Dificuldade FÁCIL detectada - Paredes CIANO");
+        }
+
+        ApplyColorToMaterial(selectedColor);
+    }
+
+    void ApplyColorToMaterial(Color color)
+    {
+        // Aplica cor no shader custom
+        if (material.HasProperty("_Color"))
+        {
+            material.SetColor("_Color", color);
+        }
+
+        // Aplica cor no material padrão
+        Color currentColor = material.color;
+        currentColor.r = color.r;
+        currentColor.g = color.g;
+        currentColor.b = color.b;
+        // Mantém o alpha atual
+        material.color = currentColor;
+
+        // Aplica na emissão também (se tiver)
+        if (material.HasProperty("_EmissionColor"))
+        {
+            material.SetColor("_EmissionColor", color * 2f);
+        }
+
+        baseColor = currentColor;
     }
 
     void Update()
@@ -109,9 +176,8 @@ public class AnimatedLaserGrid : MonoBehaviour
             else if (material.HasProperty("_EmissionColor"))
             {
                 // Shader padrão: usa _EmissionColor
-                Color emissionColor = material.GetColor("_EmissionColor");
-                Color baseEmission = new Color(emissionColor.r, emissionColor.g, emissionColor.b, 1f);
-                material.SetColor("_EmissionColor", baseEmission * emissionIntensity);
+                Color emissionColor = baseColor; // Usa a cor base (vermelha ou ciano)
+                material.SetColor("_EmissionColor", emissionColor * emissionIntensity);
             }
         }
 
@@ -132,6 +198,15 @@ public class AnimatedLaserGrid : MonoBehaviour
         }
     }
 
+    // Método público para mudar cor em tempo real (útil para testes)
+    public void SetColor(Color newColor)
+    {
+        if (material != null)
+        {
+            ApplyColorToMaterial(newColor);
+        }
+    }
+
     // Método para debug - mostra valores atuais
     void OnGUI()
     {
@@ -139,6 +214,12 @@ public class AnimatedLaserGrid : MonoBehaviour
         {
             GUILayout.Label($"Shader: {material.shader.name}");
             GUILayout.Label($"Custom Shader: {usesCustomShader}");
+            GUILayout.Label($"Cor Base: {baseColor}");
+
+            if (GameSettings.Instance != null)
+            {
+                GUILayout.Label($"Dificuldade: {GameSettings.Instance.selectedDifficulty}");
+            }
 
             if (material.HasProperty("_Alpha"))
                 GUILayout.Label($"Alpha: {material.GetFloat("_Alpha"):F2}");
